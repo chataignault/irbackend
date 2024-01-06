@@ -1,13 +1,5 @@
 import numpy as np
 import pandas as pd
-from enum import Enum
-
-
-class Tickers(Enum, str):
-    IRX = "^IRX"
-    FVX = "^FVX"
-    TNX = "^TNX"
-    TYX = "^TYX"
 
 
 def generate_data():
