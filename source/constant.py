@@ -1,8 +1,8 @@
 from enum import Enum
 
-class Tickers(Enum, str):
+
+class Ticker(str, Enum):
     IRX = "^IRX"
     FVX = "^FVX"
     TNX = "^TNX"
     TYX = "^TYX"
-
