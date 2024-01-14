@@ -1,10 +1,12 @@
 import numpy as np
-import pandas as pd
+
+from .linear_algebra import householder_qr
 
 
-def generate_data():
-    data = pd.DataFrame({"Open": [1.0, 3.0, 4.0], "Date": [1, 2, 3]})
-    return data.set_index("Date")
+def compute_pca(A: np.array):
+    m, n = A.shape
+    Q, R = householder_qr(A)
+    return Q[:, :n], R[:n, :]
 
 
 def get_principal_components(M: np.array):
