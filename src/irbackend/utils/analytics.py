@@ -4,7 +4,7 @@ from .linear_algebra import householder_qr
 
 
 def compute_pca(A: np.array):
-    m, n = A.shape
+    _, n = A.shape
     Q, R = householder_qr(A)
     return Q[:, :n], R[:n, :]
 
