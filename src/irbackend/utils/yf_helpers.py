@@ -10,12 +10,16 @@ from .processing import process_ticker_hist
 logger = logging.getLogger(__name__)
 
 
-def read_ticker_(ticker: Ticker, start: dt.datetime, end: dt.datetime, save: bool = False):
+def read_ticker_(
+    ticker: Ticker, start: dt.datetime, end: dt.datetime, save: bool = False
+):
     """
     yfinance API proxy for historical data
     Read if file already exists else fetch
     """
-    file_name = "_".join([ticker, start.strftime("%Y%m%d"), end.strftime("%Y%m%d"), ".parquet"])
+    file_name = "_".join(
+        [ticker, start.strftime("%Y%m%d"), end.strftime("%Y%m%d"), ".parquet"]
+    )
     file_path = os.path.join(os.getcwd(), "data", file_name)
     if os.path.exists(file_path):
         logger.info(f"Reading file {file_name}...")
