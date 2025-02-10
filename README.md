@@ -1,12 +1,28 @@
 # Fast API backend
 
+Playground to get the gist around :
+- REST API best practices
+- Containerisation
+- Managing dependencies with uv
+- Github workflow for CI
+
 To start the app, run :
-```console
+```bash
 uvicorn main:app --reload
 ```
 
-- black formatting (python -m black -l 120 .)
+To build the image, run :
+```bash
+source run.sh
+```
 
-## Cited code :
+## References :
 - to display full logging in the uvicorn app :
     https://gist.github.com/liviaerxin/d320e33cbcddcc5df76dd92948e5be3b
+- https://github.com/astral-sh/uv-docker-example/tree/main
+- https://github.com/actions/starter-workflows
+***
+
+To read :
+- https://docs.github.com/en/actions/writing-workflows/about-workflows
+
