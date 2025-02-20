@@ -8,7 +8,7 @@ Playground to get the gist around :
 
 To start the app, run :
 ```bash
-uvicorn main:app --reload
+uvicorn src.irbackend.main:app --reload
 ```
 
 To build the image, run :
