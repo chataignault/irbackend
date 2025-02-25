@@ -1,7 +1,11 @@
+import json
 import kaggle
 import pandas as pd
 from pathlib import Path
 from fastapi import APIRouter
+
+from .ka_helpers import CountryCode
+from ...utils import householder_qr
 
 ka_router = APIRouter(prefix="/ka", tags=["Kaggle Hub Datasets"])
 
@@ -25,9 +29,12 @@ async def get_yields():
     return df.to_json()
 
 
-@ka_router.get("/bonds/prices")
-async def get_yields():
+@ka_router.get("/bonds/prices/qr/{country_code}")
+async def get_prices_qr(country_code: CountryCode):
     if not (bond_data_path / "prices.csv").exists():
         await get_raw_data()
     df = pd.read_csv(bond_data_path / "prices.csv")
-    return df.to_json()
+    df = df[[c for c in df.columns if c.startswith(country_code)]]
+    Q, R = householder_qr(df.tail(100).values)
+    print(df.shape, Q.shape, R.shape)
+    return json.dumps({"Q": Q.tolist(), "R": R.tolist()})
