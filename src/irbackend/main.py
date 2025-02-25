@@ -1,8 +1,8 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from .utils.analytics import *
-from .utils.yf_router import yf_router
+from ..utils import *
+from .routers.yf_router import yf_router
 
 
 app = FastAPI(title="IR app backend")
