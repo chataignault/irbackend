@@ -33,4 +33,3 @@ def read_ticker_(
         if save:
             df.to_parquet(file_path)
     return df
-
