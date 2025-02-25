@@ -1,0 +1,56 @@
+version: '3.8'
+
+services:
+  # Backend API service
+  api:
+    build:
+      context: ./src/
+      dockerfile: Dockerfile
+    container_name: rates-backend
+    ports:
+      - "8080:8080"
+    environment:
+      - NODE_ENV=development
+    volumes:
+      - ./src/:/app
+    restart: unless-stopped
+    networks:
+      - app-network
+    develop:
+      # Create a `watch` configuration to update the appl
+      # https://docs.docker.com/compose/file-watch/#compose-watch-versus-bind-mounts
+      watch:
+        # Sync the working directory with the `/app` directory in the container
+        - action: sync
+          path: .
+          target: /app
+          # Exclude the project virtual environment — it could be for a
+          # different platform in the container
+          ignore:
+            - .venv/
+
+        # Rebuild the image if dependencies change by checking uv.lock
+        - action: rebuild
+          path: ./uv.lock
+
+  # Frontend UI service
+  ui:
+    build:
+      context: ./ui # clone before
+      dockerfile: Dockerfile
+    container_name: rates-app
+    ports:
+      - "3000:80"
+    environment:
+      - REACT_APP_API_URL=http://localhost:8080/rates/
+    volumes:
+      - ./ui:/app
+    restart: unless-stopped
+    networks:
+      - app-network
+    depends_on:
+      - api
+
+networks:
+  app-network:
+    driver: bridge
