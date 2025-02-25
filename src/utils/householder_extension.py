@@ -16,13 +16,13 @@ def householder_decomposition(A: np.ndarray) -> Tuple[np.ndarray, np.ndarray]:
     B = A.copy()
 
     for i in range(p):
-        beta = 2.
+        beta = 2.0
         v = compute_v_householder(B[i:, i])
         B[i:, i:] -= 2 * v @ (np.conj(v.T) @ B[i:, i:])
         if i > 0:
             v = np.concatenate([np.zeros((i, 1)), v])
         Y[:, i] = v.T
-        W[:, i] = beta*(v - np.dot(W[:, :i], np.dot(Y[:, :i].T, v))).T
+        W[:, i] = beta * (v - np.dot(W[:, :i], np.dot(Y[:, :i].T, v))).T
 
     return W, Y
 
