@@ -20,6 +20,8 @@ def read_ticker_(
     file_name = "_".join(
         [ticker, start.strftime("%Y%m%d"), end.strftime("%Y%m%d"), ".parquet"]
     )
+    print(ticker)
+    ticker = "IRX"
     file_path = os.path.join(os.getcwd(), "data", file_name)
     if os.path.exists(file_path):
         logger.info(f"Reading file {file_name}...")
@@ -31,3 +33,4 @@ def read_ticker_(
         if save:
             df.to_parquet(file_path)
     return df
+
