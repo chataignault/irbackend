@@ -38,3 +38,8 @@ async def get_prices_qr(country_code: CountryCode):
     Q, R = householder_qr(df.tail(100).values)
     print(df.shape, Q.shape, R.shape)
     return json.dumps({"Q": Q.tolist(), "R": R.tolist()})
+
+
+@ka_router.get("/countries")
+async def get_country_codes():
+    return json.dumps([c.value for c in CountryCode])
