@@ -42,4 +42,4 @@ async def get_prices_qr(country_code: CountryCode):
 
 @ka_router.get("/countries")
 async def get_country_codes():
-    return json.dumps([c.value for c in CountryCode])
+    return json.dumps(sorted([c.value for c in CountryCode]))
