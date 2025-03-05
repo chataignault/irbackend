@@ -2,7 +2,7 @@ import pytest
 import numpy as np
 from numpy import random
 
-from householder import householder
+from ..householder import householder
 
 
 @pytest.mark.parametrize("m", [20, 40, 87])
@@ -15,4 +15,4 @@ def test_householder(m):
     householder(A0)
     R = A0
     assert np.allclose(R, np.triu(R))  # check R is upper triangular
-    assert np.norm(np.dot(np.conj(R.T), R) - np.dot(np.conj(A.T), A)) < 1.0e-6
+    assert np.linalg.norm(np.dot(np.conj(R.T), R) - np.dot(np.conj(A.T), A)) < 1.0e-6
