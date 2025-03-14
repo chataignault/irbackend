@@ -1,9 +1,9 @@
-
 import pytest
 from numpy import random
 import numpy as np
 
 from .. import arnoldi, GMRES
+
 
 @pytest.mark.parametrize("m, k", [(20, 4), (40, 20), (70, 13)])
 def test_arnoldi(m, k):

@@ -1,6 +1,7 @@
-*.pyc
-__pycache__/*
-*.csv
-test.ipynb
+__pycache__/
 .vscode
+*.csv
+*.txt
+*.pyc
+*.ipynb
 
