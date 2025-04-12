@@ -23,6 +23,7 @@ source run.sh
 - https://github.com/actions/starter-workflows
 ***
 
-To read :
+Sources :
+- https://github.com/astral-sh/uv-docker-example
 - https://docs.github.com/en/actions/writing-workflows/about-workflows
 - https://www.kaggle.com/datasets/everget/government-bonds/data

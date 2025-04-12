@@ -1,8 +1,7 @@
 import numpy as np
 from typing import Tuple
 
-from cla_utils import compute_v_householder
-
+from .householder import compute_v_householder
 
 def householder_decomposition(A: np.ndarray) -> Tuple[np.ndarray, np.ndarray]:
     """
