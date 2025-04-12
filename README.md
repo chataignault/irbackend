@@ -2,9 +2,16 @@
 
 Playground to get the gist around :
 - REST API best practices
-- Containerisation
+- Containerisation 
 - Managing dependencies with uv
 - Github workflow for CI
+
+| Task | Package |
+| --- | --- |
+| Data preprocessing | polars |
+| Linear algebra | numpy |
+| Unit tests | pytest |
+| API Routing | uvicorn, fastapi |
 
 To start the app, run :
 ```bash
@@ -23,7 +30,7 @@ source run.sh
 - https://github.com/actions/starter-workflows
 ***
 
-Sources :
+Data sources :
 - https://github.com/astral-sh/uv-docker-example
 - https://docs.github.com/en/actions/writing-workflows/about-workflows
 - https://www.kaggle.com/datasets/everget/government-bonds/data

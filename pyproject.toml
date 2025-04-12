@@ -20,6 +20,7 @@ dependencies = [
 dev = [
     "ipykernel>=6.29.5",
     "matplotlib>=3.10.0",
+    "pyarrow>=19.0.1",
     "pytest>=8.3.4",
     "rich>=13.9.4",
     "ruff>=0.8.4",
