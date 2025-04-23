@@ -6,7 +6,7 @@ using models of all sorts.
 
 It is also a playground to get the gist around dev concepts and tools :
 - REST API best practices
-- Containerisation
+- Containerisation 
 - Managing dependencies with uv
 - Github workflow for CI
 
@@ -58,6 +58,9 @@ source run.sh
     https://gist.github.com/liviaerxin/d320e33cbcddcc5df76dd92948e5be3b
 - https://github.com/astral-sh/uv-docker-example/tree/main
 - https://github.com/actions/starter-workflows
+***
+
+Data sources :
 - https://github.com/astral-sh/uv-docker-example
 - https://docs.github.com/en/actions/writing-workflows/about-workflows
 

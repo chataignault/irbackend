@@ -1,9 +1,9 @@
-
 import pytest
 from numpy import random
 import numpy as np
 
 from .. import pow_it, inverse_it, rq_it, pure_QR
+
 
 @pytest.mark.parametrize("m", [20, 204, 18])
 def test_pow_it(m):
