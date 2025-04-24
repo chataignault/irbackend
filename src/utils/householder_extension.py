@@ -3,6 +3,7 @@ from typing import Tuple
 
 from .householder import compute_v_householder
 
+
 def householder_decomposition(A: np.ndarray) -> Tuple[np.ndarray, np.ndarray]:
     """
     Computes the householder decomposition of Q as :
