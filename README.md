@@ -24,23 +24,29 @@ Options :
 - https://iceberg.apache.org/
 - https://github.com/delta-io/delta-rs?tab=readme-ov-file
 
+Preprocessing and cleaning, then addition to or creation of new table.
+Rust or Python ?
+
 ## Targets
 
-**FR yiels**
+**FR yields**
+As a multivariate time-series prediction.
 
 **Covariance matrix estimation**
-
+For clustering (in terms of rates, or in terms of days to define market modes).
 
 ## Models
 
 ## Project structure
 
 ```bash
-└── src
-    ├── ingestion    # pre-processing
-    ├── app          # API endpoint
+└── src             # containing both services and libraries
+    ├── app         # API entrypoint 
     │   └── routers
-    └── utils        # models
+    ├── ingestion   # pre-processing service, tables creation and serving
+    │   └── src
+    ├── models      # model application, training
+    └── utils       # custom functions and model helpers
         └── test
 ```
 
