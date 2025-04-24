@@ -6,6 +6,7 @@ def process_ticker_hist(df: pd.DataFrame) -> pd.DataFrame:
     df["Mid"] = (df["High"] - df["Low"]) / 2.0
     return df[["Mid"]]
 
+
 MAX_DAILY_CHANGE = 2.0
 
 
