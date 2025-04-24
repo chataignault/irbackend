@@ -22,15 +22,27 @@ Options :
 - `pandas` / `polars` dataframe for a few datasources only (short term),
 - https://datafusion.apache.org/
 - https://iceberg.apache.org/
-
+- https://github.com/delta-io/delta-rs?tab=readme-ov-file
 
 ## Targets
 
 **FR yiels**
 
+**Covariance matrix estimation**
 
 
 ## Models
+
+## Project structure
+
+```bash
+└── src
+    ├── ingestion    # pre-processing
+    ├── app          # API endpoint
+    │   └── routers
+    └── utils        # models
+        └── test
+```
 
 **Tools overview :**
 
@@ -40,6 +52,7 @@ Options :
 | Linear algebra | numpy |
 | Unit tests | pytest |
 | API Routing | uvicorn, fastapi |
+
 
 ## Run API
 
@@ -56,16 +69,13 @@ source run.sh
 ## References :
 - to display full logging in the uvicorn app :
     https://gist.github.com/liviaerxin/d320e33cbcddcc5df76dd92948e5be3b
-- https://github.com/astral-sh/uv-docker-example/tree/main
 - https://github.com/actions/starter-workflows
-***
-
-Data sources :
 - https://github.com/astral-sh/uv-docker-example
 - https://docs.github.com/en/actions/writing-workflows/about-workflows
-
+- https://github.com/ProsusAI/finBERT?tab=readme-ov-file
 ***
 
 Data sources :
 - https://www.kaggle.com/datasets/everget/government-bonds/data
 - https://api.energy-charts.info/
+- https://www.researchgate.net/publication/251231364_FinancialPhraseBank-v10/references
