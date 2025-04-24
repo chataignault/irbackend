@@ -10,6 +10,8 @@ It is also a playground to get the gist around dev concepts and tools :
 - Managing dependencies with uv
 - Github workflow for CI
 
+<img src="img/process_flowchart.png" width="600">
+
 ## Data
 Because the idea is to gather data from different sources,
 with, say, different ticking frequencies, qualities and types, 
