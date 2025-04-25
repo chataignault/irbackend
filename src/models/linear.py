@@ -9,8 +9,8 @@ def model_linear_regression(X, Y):
 
     assert Y_pred_lin.shape == Y.shape
 
-    rss = np.sum((Y-Y_pred_lin)**2)
-    var = np.sum((Y)**2)
+    rss = np.sum((Y - Y_pred_lin) ** 2)
+    var = np.sum((Y) ** 2)
     print(f"Linear R2: {1 - rss / var}")
 
     return lin
