@@ -8,7 +8,6 @@ import polars as pl
 from deltalake import write_deltalake
 
 from . import DataFolder
-from .processing import ingest_bond_data
 from .ka_helpers import CountryCode
 from ...utils import householder_qr
 
@@ -20,6 +19,11 @@ database_path = Path(DataFolder.INGESTED)
 
 @ka_router.get("/bonds/download_raw")
 async def get_bonds_kaggle_raw():
+    """
+    Download data from Kaggle dataset (first as CSV files)
+    Create Delta Lake table (from CSV)
+    """
+
     kaggle.api.authenticate()
     kaggle.api.dataset_download_files(
         "everget/government-bonds", path=raw_data_path, unzip=True
@@ -27,15 +31,18 @@ async def get_bonds_kaggle_raw():
 
     prices = pl.read_csv(raw_data_path / "prices.csv")
     yields = pl.read_csv(raw_data_path / "yields.csv")  # lazy ?
+
     write_deltalake(
         table_or_uri=raw_data_path,
         name="bond_prices_raw",
         data=prices,
+        mode="overwrite",
     )
     write_deltalake(
         table_or_uri=raw_data_path,
         name="bond_yields_raw",
         data=yields,
+        mode="overwrite",
     )
 
     return
@@ -54,7 +61,6 @@ async def get_prices_qr(country_code: CountryCode):
     if not (database_path / "prices.csv").exists():
         if not (raw_data_path / "prices.csv").exists():
             await get_bonds_kaggle_raw()
-        await ingest_bond_data()
     df = pd.read_csv(database_path / "prices.csv")
     df = df[[c for c in df.columns if c.startswith(country_code)]]
     Q, R = householder_qr(df.tail(100).values)
