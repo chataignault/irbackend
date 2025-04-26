@@ -1,36 +1,52 @@
-use deltalake::{DeltaTableBuilder, DeltaTableError, open_table, writer::DeltaWriter};
+use deltalake::{DeltaTable, DeltaTableBuilder, DeltaTableError, open_table, writer::DeltaWriter};
 use polars::prelude::*;
+use arrow::prelude::*;
 use std::path::Path;
 use tokio;
+use std::sync::Arc;
+use deltalake::datafusion::execution::context::SessionContext;
 
 #[tokio::main]
 async fn main() -> Result<(), DeltaTableError> {
-    let id_series = Series::new("id".into(), &[1_i32, 2_i32]);
-    let value_series = Series::new("value".into(), &["foo", "boo"]);
 
-    let df = DataFrame::new(vec![id_series.into(), value_series.into()])?;
-    println!("Original DataFrame:");
-    println!("{}", df);
-
-    // Write the DataFrame to a Delta table
-    let table_path = "./data/delta";
-    let writer = DeltaWriter::with_writer_properties();
-    writer::Writer(Path::new(table_path), &df, None, None, None)?;
-
-    // Read back the Delta table
-    let dt = DeltaTableBuilder::from_uri(table_path).load()?;
-
-    // Convert the Delta table to a Polars DataFrame
-    let df2 = deltalake::to_polars(&dt)?;
-    println!("DataFrame from Delta:");
-    println!("{}", df2);
-
+    let table_path = "../../raw_data";
+    
     // open the table written in python
     let table = open_table(table_path).await?;
-
+    
     // show all active files in the table
     let files: Vec<_> = table.get_file_uris()?.collect();
+    let schema = table.schema().unwrap();
     println!("{files:?}");
+    println!("{schema:?}");
+    
+    
+    // _ = table.load();
+    println!("Loaded table");
 
+    
+    let batches = async {
+        let mut ctx = SessionContext::new();
+        let table = open_table(table_path)
+            .await
+            .unwrap();
+        ctx.register_table("demo", Arc::new(table)).unwrap();
+    
+        let batches = ctx
+            .sql("SELECT * FROM demo").await.unwrap()
+            .collect()
+            .await.unwrap();
+        batches
+    }.await;
+    let batch = batches.get(0).unwrap();
+    let arrow_schema = batch.schema();
+    let ipc_data = arrow::ipc::writer::serialize_batch(batch)?;
+    
+    // Then deserialize it using polars' native arrow implementation
+    let record_batch = arrow::ipc::reader::read_record_batch(&ipc_data, arrow_schema.clone(), 0)?;
+    
+    // Now convert the standard Arrow RecordBatch to a polars DataFrame
+    let df = DataFrame::try_from(record_batch).unwrap();
+    // let df = DataFrame::try_from(batch).unwrap();
     Ok(())
 }

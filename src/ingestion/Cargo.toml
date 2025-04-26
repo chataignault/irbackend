@@ -4,6 +4,11 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
+arrow = "55.0.0"
+chrono = "0.4.40"
 deltalake = { version = "0.25.0", features = ["datafusion"] }
 polars = "0.46.0"
 tokio = "1.44.2"
+
+[patch.crates-io]
+deltalake-core = { git = "https://github.com/delta-io/delta-rs.git", branch = "main" }
