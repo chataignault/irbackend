@@ -1,5 +1,3 @@
-use arrow::array::{ArrayRef, Int32Array, StringArray};
-use arrow::datatypes::{DataType, Field, Schema};
 use arrow::record_batch::RecordBatch;
 use deltalake::datafusion::prelude::SessionContext;
 use deltalake::open_table;

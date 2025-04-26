@@ -28,7 +28,18 @@ Options :
 - https://github.com/delta-io/delta-rs?tab=readme-ov-file
 
 Preprocessing and cleaning, then addition to or creation of new table.
-Rust or Python ?
+
+The objective is to have a standalone rust service that shares a global config 
+to define tables location and name.
+The processing logic can be written in `polars`, 
+while the querying in the tables can be done with `datafusion`.
+
+> [!WARNING]
+> Converting from native arrow to polars' version of arrow has been a rough-ride
+> due to conversion deprecation
+> and dependency conflicts from [here](https://github.com/delta-io/delta-rs/issues/3391).
+> Temporary intermediate conversion to parquet.
+
 
 ## Targets
 
