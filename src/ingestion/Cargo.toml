@@ -4,11 +4,11 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
-arrow = "55.0.0"
-chrono = "0.4.40"
+arrow = { version = "=54.2.1", features = ["ffi"] }
+arrow-ipc = "=54.2.1"
 deltalake = { version = "0.25.0", features = ["datafusion"] }
-polars = "0.46.0"
+futures = "=0.3.31"
+parquet = { version = "=54.2.1", features = ["arrow"] }
+polars = { version = "=0.46.0", features = ["lazy", "dtype-full", "polars-io", "parquet"] }
+polars-arrow = { version = "=0.46.0", features = ["io_ipc"] }
 tokio = "1.44.2"
-
-[patch.crates-io]
-deltalake-core = { git = "https://github.com/delta-io/delta-rs.git", branch = "main" }
