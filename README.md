@@ -10,6 +10,9 @@ It is also a playground to get the gist around dev concepts and tools :
 - Managing dependencies with uv
 - Github workflow for CI
 
+<img src="img/process_flowchart.png" width="600">
+
+
 ## Data
 Because the idea is to gather data from different sources,
 with, say, different ticking frequencies, qualities and types, 
@@ -85,3 +88,11 @@ Data sources :
 - https://www.kaggle.com/datasets/everget/government-bonds/data
 - https://api.energy-charts.info/
 - https://www.researchgate.net/publication/251231364_FinancialPhraseBank-v10/references
+
+***
+
+Other :
+
+*(Flowchart from : )*
+
+![My Skills](https://go-skill-icons.vercel.app/api/icons?i=mermaid)
