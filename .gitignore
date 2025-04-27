@@ -4,9 +4,13 @@ __pycache__/
 *.txt
 *.pyc
 *.ipynb
+*.lock 
 
 test.py
 .todos
+target
+
+raw_data
 
 raw_data
 

@@ -10,6 +10,9 @@ It is also a playground to get the gist around dev concepts and tools :
 - Managing dependencies with uv
 - Github workflow for CI
 
+<img src="img/process_flowchart.png" width="600">
+
+
 ## Data
 Because the idea is to gather data from different sources,
 with, say, different ticking frequencies, qualities and types, 
@@ -25,7 +28,18 @@ Options :
 - https://github.com/delta-io/delta-rs?tab=readme-ov-file
 
 Preprocessing and cleaning, then addition to or creation of new table.
-Rust or Python ?
+
+The objective is to have a standalone rust service that shares a global config 
+to define tables location and name.
+The processing logic can be written in `polars`, 
+while the querying in the tables can be done with `datafusion`.
+
+> [!WARNING]
+> Converting from native arrow to polars' version of arrow has been a rough-ride
+> due to conversion deprecation
+> and dependency conflicts from [here](https://github.com/delta-io/delta-rs/issues/3391).
+> Temporary intermediate conversion to parquet.
+
 
 ## Targets
 
@@ -85,3 +99,11 @@ Data sources :
 - https://www.kaggle.com/datasets/everget/government-bonds/data
 - https://api.energy-charts.info/
 - https://www.researchgate.net/publication/251231364_FinancialPhraseBank-v10/references
+
+***
+
+Other :
+
+*(Flowchart from : )*
+
+![My Skills](https://go-skill-icons.vercel.app/api/icons?i=mermaid)
