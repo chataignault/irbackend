@@ -2,13 +2,9 @@ use arrow::record_batch::RecordBatch;
 use deltalake::datafusion::prelude::SessionContext;
 use deltalake::open_table;
 use futures::executor::block_on;
-use polars::lazy::dsl::Expr;
 use polars::lazy::dsl::*;
-use polars::lazy::dsl::*;
-use polars::prelude::*;
 use polars::prelude::*;
 use polars::series::ops::NullBehavior;
-use polars_plan::prelude::*;
 use std::sync::Arc;
 use tokio;
 
