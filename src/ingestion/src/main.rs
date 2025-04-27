@@ -2,11 +2,17 @@ use arrow::record_batch::RecordBatch;
 use deltalake::datafusion::prelude::SessionContext;
 use deltalake::open_table;
 use futures::executor::block_on;
+use polars::lazy::dsl::Expr;
+use polars::lazy::dsl::*;
+use polars::lazy::dsl::*;
 use polars::prelude::*;
+use polars::prelude::*;
+use polars::series::ops::NullBehavior;
+use polars_plan::prelude::*;
 use std::sync::Arc;
 use tokio;
 
-// Because polars uses a forked backend of arrow,
+// use polars::lazy::dsl::Expr;// Because polars uses a forked backend of arrow,
 // and since type conversion has not been straightforward,
 // the arrow to polars_arrow conversion is done by serialisation and deserialisation :
 // Arrow -> Parquet -> Polars
@@ -79,9 +85,26 @@ fn delta_to_polars(delta_table_path: &str) -> Result<DataFrame, Box<dyn std::err
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let delta_table_path = "../../raw_data";
+    const MAX_DAILY_CHANGE: f32 = 2.0;
 
     // Read the Delta table and convert to Polars
-    let polars_df = delta_to_polars(delta_table_path)?;
+    let mut polars_df = delta_to_polars(delta_table_path)?;
+
+    // logic to filter jumps
+    polars_df = polars_df
+        .lazy()
+        .select([all().exclude(["time"]).backward_fill(None)])
+        .with_columns([all().exclude(["time"]).first().alias("__first_row")])
+        .with_columns([all()
+            .exclude(["time", "__first_row"])
+            .diff(1, NullBehavior::Drop)
+            .clip((-MAX_DAILY_CHANGE).into(), MAX_DAILY_CHANGE.into())
+            .replace(-MAX_DAILY_CHANGE, 0.)
+            .replace(MAX_DAILY_CHANGE, 0.)
+            .cum_sum(false)
+            + col("__first_row")])
+        .drop(["__first_row"])
+        .collect()?;
 
     println!("Polars DataFrame Head:");
     println!("{}", polars_df.head(Some(5)));
