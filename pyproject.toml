@@ -8,6 +8,7 @@ dependencies = [
     "deltalake>=0.25.5",
     "fastapi>=0.115.6",
     "kaggle>=1.6.17",
+    "lightgbm>=4.6.0",
     "numpy>=2.2.1",
     "pandas>=2.2.3",
     "polars>=1.18.0",
