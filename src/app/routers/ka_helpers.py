@@ -21,7 +21,6 @@ class CountryCode(str, Enum):
     ES = "ES"
     NL = "NL"
     NZ = "NZ"
-    ti = "ti"
     DE = "DE"
     IT = "IT"
     ZA = "ZA"
