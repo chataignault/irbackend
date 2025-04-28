@@ -78,6 +78,23 @@ fn delta_to_polars(delta_table_path: &str) -> Result<DataFrame, Box<dyn std::err
     Ok(df)
 }
 
+fn filter_jumps(df: DataFrame, cutoff: f32) -> Result<DataFrame, PolarsError> {
+    // logic to filter jumps
+    df.lazy()
+        .select([all().exclude(["time"]).backward_fill(None)])
+        .with_columns([all().exclude(["time"]).first().alias("__first_row")])
+        .with_columns([all()
+            .exclude(["time", "__first_row"])
+            .diff(1, NullBehavior::Drop)
+            .clip((-cutoff).into(), cutoff.into())
+            .replace(-cutoff, 0.)
+            .replace(cutoff, 0.)
+            .cum_sum(false)
+            + col("__first_row")])
+        .drop(["__first_row"])
+        .collect()
+}
+
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let delta_table_path = "../../raw_data";
@@ -85,22 +102,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     // Read the Delta table and convert to Polars
     let mut polars_df = delta_to_polars(delta_table_path)?;
-
-    // logic to filter jumps
-    polars_df = polars_df
-        .lazy()
-        .select([all().exclude(["time"]).backward_fill(None)])
-        .with_columns([all().exclude(["time"]).first().alias("__first_row")])
-        .with_columns([all()
-            .exclude(["time", "__first_row"])
-            .diff(1, NullBehavior::Drop)
-            .clip((-MAX_DAILY_CHANGE).into(), MAX_DAILY_CHANGE.into())
-            .replace(-MAX_DAILY_CHANGE, 0.)
-            .replace(MAX_DAILY_CHANGE, 0.)
-            .cum_sum(false)
-            + col("__first_row")])
-        .drop(["__first_row"])
-        .collect()?;
+    polars_df = filter_jumps(polars_df, MAX_DAILY_CHANGE).unwrap();
 
     println!("Polars DataFrame Head:");
     println!("{}", polars_df.head(Some(5)));
