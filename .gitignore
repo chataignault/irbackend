@@ -6,11 +6,8 @@ __pycache__/
 *.ipynb
 *.lock 
 
-test.py
 .todos
 target
-
-raw_data
-
+draft 
 raw_data
 
