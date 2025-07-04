@@ -1,27 +1,31 @@
 # Interest Rates backend API and analytics
 
-With public rates or macro data, 
+With public data from different endpoints,
+including rates, macro and crypto data, 
 the objective is to model various target objectives,
-using models of all sorts.
+using pre-processing, statistical and calibration methods.
 
-It is also a playground to get the gist around dev concepts and tools :
-- REST API best practices
-- Containerisation 
-- Managing dependencies with uv
-- Github workflow for CI
+It is also a proof-of-concept to blend analytics into a well-principled backend.
+
+Therefore the project is a playground to get the gist around dev concepts and tools :
+- REST API best practices,
+- Containerisation (`podman`) for environment reproducibility 
+and having seperate, well-defined services,
+- Managing Python dependencies with `uv`,
+- Github workflow for CI.
 
 <img src="img/process_flowchart.png" width="600">
 
 
 ## Data
 Because the idea is to gather data from different sources,
-with, say, different ticking frequencies, qualities and types, 
+with, say, different tick frequencies, qualities and types, 
 the long run objective is to have a clean ingestion pipeline
 that can gather each endpoint, 
 manage exceptions without failing,
 and run in a separate service.
 
-Options :
+*Options :*
 - `pandas` / `polars` dataframe for a few datasources only (short term),
 - https://datafusion.apache.org/
 - https://iceberg.apache.org/
@@ -48,6 +52,10 @@ As a multivariate time-series prediction.
 
 **Covariance matrix estimation**
 For clustering (in terms of rates, or in terms of days to define market modes).
+
+**Crypto Predictive Variable**
+Is a [Kaggle competition](https://www.kaggle.com/competitions/drw-crypto-market-prediction/data) 
+where the objective is Pearson's correlation coefficient.
 
 ## Models
 
@@ -107,3 +115,4 @@ Other :
 *(Flowchart from : )*
 
 ![My Skills](https://go-skill-icons.vercel.app/api/icons?i=mermaid)
+
