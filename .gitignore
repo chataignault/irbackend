@@ -5,6 +5,7 @@ __pycache__/
 *.pyc
 *.ipynb
 *.lock 
+*.parquet
 
 .todos
 target
