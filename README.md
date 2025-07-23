@@ -1,42 +1,53 @@
-# Interest Rates backend API and analytics
+# Fixed Income backend and analytics
 
-With public data from different endpoints,
-including rates, macro and crypto data, 
-the objective is to model various target objectives,
-using pre-processing, statistical and calibration methods.
+With public data related to rates, macro, commodities and crypto, 
+the aim is get systematic trading practice from end-to-end of the pipeline.
 
-It is also a proof-of-concept to blend analytics into a well-principled backend.
+As such, the project is a POC involving statistics, dev and data science \& engineering.
 
-Therefore the project is a playground to get the gist around dev concepts and tools :
-- REST API best practices,
-- Containerisation (`podman`) for environment reproducibility 
-and having seperate, well-defined services,
-- Managing Python dependencies with `uv`,
-- Github workflow for CI.
+### Guidelines
+- API best practices,
+- Well-defined services,
+- Accountable and safe data processing,
+- Quantified analytics,
+
+### Techniques
+- REST API,
+- Data Lake / Lake House architecture `to be decided`,
+- Containerisation with `podman`,
+- Managing Python dependencies with `uv`, integrating Rust code,
+- `Github workflow` for CI.
+
+### Algos
+- Tabular and time-series off-the-shelf ML,
+- Market mode modelisation
+
+### Objective structure
 
 <img src="img/process_flowchart.png" width="600">
 
 
 ## Data
-Because the idea is to gather data from different sources,
-with, say, different tick frequencies, qualities and types, 
-the long run objective is to have a clean ingestion pipeline
-that can gather each endpoint, 
-manage exceptions without failing,
-and run in a separate service.
+Challenge to unify data from different sources,
+with different tick frequencies, noise levels and structure. 
+- Ingestion pipeline (ETL)
+to gather each endpoint (treated individually). 
+    - manage exceptions without failing,
+    - run in a separate service.
 
-*Options :*
+### Options :
 - `pandas` / `polars` dataframe for a few datasources only (short term),
 - https://datafusion.apache.org/
 - https://iceberg.apache.org/
 - https://github.com/delta-io/delta-rs?tab=readme-ov-file
+- test `duckdb` and `ducklake` to get started : serverless, little configuration
+- *external :* https://www.databricks.com/ 
 
-Preprocessing and cleaning, then addition to or creation of new table.
 
-The objective is to have a standalone rust service that shares a global config 
-to define tables location and name.
-The processing logic can be written in `polars`, 
-while the querying in the tables can be done with `datafusion`.
+One secondary objective is to implement a test rust service 
+with transforming logic written in `polars`, 
+while the querying in the tables can be done with `datafusion`
+and placed in a `delta-lake` table.
 
 > [!WARNING]
 > Converting from native arrow to polars' version of arrow has been a rough-ride
@@ -47,9 +58,6 @@ while the querying in the tables can be done with `datafusion`.
 
 ## Targets
 
-**FR yields**
-As a multivariate time-series prediction.
-
 **Covariance matrix estimation**
 For clustering (in terms of rates, or in terms of days to define market modes).
 
@@ -58,6 +66,8 @@ Is a [Kaggle competition](https://www.kaggle.com/competitions/drw-crypto-market-
 where the objective is Pearson's correlation coefficient.
 
 ## Models
+
+- MacMahon, Mel, and Diego Garlaschelli. "Community detection for correlation matrices." arXiv preprint arXiv:1311.1924 (2013).
 
 ## Project structure
 
@@ -107,6 +117,9 @@ Data sources :
 - https://www.kaggle.com/datasets/everget/government-bonds/data
 - https://api.energy-charts.info/
 - https://www.researchgate.net/publication/251231364_FinancialPhraseBank-v10/references
+- https://www.eia.gov/
+- https://www.alphavantage.co/
+- https://developer.yahoo.com/api/ *decomissioned*
 
 ***
 
