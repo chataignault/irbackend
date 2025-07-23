@@ -26,4 +26,4 @@ async def read_usdx(
     df = get_usd_index_fred()
     if save:
         df.to_parquet("usdx_history.parquet")
-    return df.to_json()
+    return df.reset_index().to_json()
