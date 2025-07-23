@@ -117,8 +117,9 @@ Data sources :
 - https://www.kaggle.com/datasets/everget/government-bonds/data
 - https://api.energy-charts.info/
 - https://www.researchgate.net/publication/251231364_FinancialPhraseBank-v10/references
-- https://developer.yahoo.com/api/
 - https://www.eia.gov/
+- https://www.alphavantage.co/
+- https://developer.yahoo.com/api/ *decomissioned*
 
 ***
 
