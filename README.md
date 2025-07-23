@@ -119,6 +119,7 @@ Data sources :
 - https://www.researchgate.net/publication/251231364_FinancialPhraseBank-v10/references
 - https://www.eia.gov/
 - https://www.alphavantage.co/
+- https://pydata.github.io/pandas-datareader/index.html
 - https://developer.yahoo.com/api/ *decomissioned*
 
 ***
