@@ -72,14 +72,26 @@ where the objective is Pearson's correlation coefficient.
 ## Project structure
 
 ```bash
-└── src             # containing both services and libraries
-    ├── app         # API entrypoint 
+├── draft
+├── img
+├── kaggle
+├── notebooks              # curated notebooks to present features or use-cases
+├── podman-test-harlequin
+├── raw_data
+│   ├── commo
+│   └── crypto
+└── src                     # containing both services and libraries
+    ├── app                 # API entrypoint 
     │   └── routers
-    ├── ingestion   # pre-processing service, tables creation and serving
+    ├── ingestion           # ETL service
     │   └── src
-    ├── models      # model application, training
-    └── utils       # custom functions and model helpers
-        └── test
+    ├── models              # analytics helpers
+    └── utils
+        ├── dataset
+        ├── metrics
+        ├── test
+        └── transforms
+
 ```
 
 **Tools overview :**
@@ -96,7 +108,7 @@ where the objective is Pearson's correlation coefficient.
 
 To start the app, run :
 ```bash
-uvicorn src.irbackend.main:app --reload
+uvicorn src.app.main:app --reload
 ```
 
 To build the image, run :

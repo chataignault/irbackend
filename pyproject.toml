@@ -1,7 +1,7 @@
 [project]
-name = "irbackend"
+name = "fixed-income-analytics"
 version = "0.1.0"
-description = "Rates analytics API"
+description = "Fixed Income and Commodities analytics API"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
